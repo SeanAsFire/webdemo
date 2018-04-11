@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_HOME" value="${CATALINA_BASE}/logs"/>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DRUID_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/druid.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SQL_PLUGIN_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>UTF-8</encoder>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/sql.slow.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="TRANSACTION_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>UTF-8</encoder>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/slow.transaction.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SQL_PLUGIN_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>UTF-8</encoder>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/sql.exception.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="SQL_PLUGIN_LARGE_RESULT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>UTF-8</encoder>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/sql.largeResult.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- slow sql config start-->
+    <appender name="SELF_SQL_SLOW_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/slow_sql.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="SELF_SQL_EXCEPTION_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/sql_exception.log</file>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/sql_exception.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="defaultHdsAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/hds.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="gcacheMonitorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/gcacheMonitor.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!--duboo日志-->
+    <appender name="dubboConsumer" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/duboo_consumer.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <appender name="dubooProvider" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/dubbo_provider.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="gcacheMonitor" level="INFO" additivity="false">
+        <appender-ref ref="defaultHdsAppender"/>
+    </logger>
+
+    <logger name="slow_sql_logger" level="INFO" additivity="false">
+        <appender-ref ref="defaultHdsAppender"/>
+    </logger>
+
+
+    <logger name="exception_sql_logger" level="INFO" additivity="false">
+        <appender-ref ref="defaultHdsAppender"/>
+    </logger>
+    <!-- slow sql config end-->
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+    </root>
+
+    <logger name="org.springframework.jdbc.core" level="DEBUG"/>
+    <logger name="java.sql" level="INFO"/>
+
+    <logger name="com.alibaba.druid.filter.stat.StatFilter" level="ERROR">
+        <appender-ref ref="defaultHdsAppender"/>
+    </logger>
+
+    <logger name="com.tujia.tns.hds.common.monitor.SQLExceptionInterceptor" additivity="false" level="INFO">
+        <appender-ref ref="defaultHdsAppender"/>
+        <appender-ref ref="defaultHdsAppender"/>
+    </logger>
+
+
+    <!--duboo日志-->
+    <logger name="dubbo_consumer" level="INFO" additivity="false">
+        <appender-ref ref="defaultHdsAppender"/>
+    </logger>
+    <logger name="duboo_provider" level="INFO" additivity="false">
+        <appender-ref ref="defaultHdsAppender"/>
+    </logger>
+
+    <appender name="priceData" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/price_calculate.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="priceData" additivity="false">
+        <appender-ref ref="priceData"/>
+    </logger>
+    <appender name="priceDataRefresh" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/price_refresh.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="priceDataRefresh" additivity="false">
+        <appender-ref ref="priceDataRefresh"/>
+    </logger>
+
+    <appender name="priceDataDelete" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/price_delete.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="priceDataDelete" additivity="false">
+        <appender-ref ref="priceDataDelete"/>
+    </logger>
+
+    <appender name="priceCalculate" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoding>UTF-8</encoding>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5p) %t] %F:%L\(%M\) %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/price_calculate.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="priceCalculate" additivity="false">
+        <appender-ref ref="priceCalculate"/>
+    </logger>
+
+
+</configuration>
