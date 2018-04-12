@@ -185,10 +185,6 @@
         <appender-ref ref="defaultHdsAppender"/>
     </logger>
 
-    <logger name="com.tujia.tns.hds.common.monitor.SQLExceptionInterceptor" additivity="false" level="INFO">
-        <appender-ref ref="defaultHdsAppender"/>
-        <appender-ref ref="defaultHdsAppender"/>
-    </logger>
 
 
     <!--duboo日志-->

@@ -192,11 +192,6 @@
         <appender-ref ref="console"/>
     </logger>
 
-    <logger name="com.tujia.tns.hds.common.monitor.SQLExceptionInterceptor" additivity="false" level="INFO">
-        <appender-ref ref="console"/>
-        <appender-ref ref="console"/>
-    </logger>
-
 
     <!--duboo日志-->
     <logger name="dubbo_consumer" level="INFO" additivity="false">

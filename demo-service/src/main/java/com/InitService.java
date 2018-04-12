@@ -1,4 +1,4 @@
-package com.tujia.tns.pricing.service;
+package com;
 
 /**
  * @author lianweiq
